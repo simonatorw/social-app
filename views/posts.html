@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>Posts</title>
+		<style>
+			body {
+				background-color: #fff;
+				color: #333;
+				font-family: verdana, sans-serif;
+				font-size: 12px;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				height: 93vh;
+				margin: 0;
+			}
+			#container {
+				display: flex;
+				flex: 0;
+				flex-flow: row wrap;
+				background-color: #fff;
+				border: 1px solid #ddd;
+				border-radius: 6px;
+				padding: 20px;
+				justify-content: center;
+			}		
+		</style>
+	</head>
+	<body>
+		<section id="container"></section>
+		<script>
+			class Sockets {
+				constructor() {
+					this.init();
+				}
+				init() {
+					let connection = new WebSocket('ws://localhost:3000');
+					
+					connection.onmessage = function(e) {
+						console.log('msg received: ', e.data);
+						
+						//const node = new Node(document.getElementById('container'));
+						
+						//node.append(e.data);
+					}
+					connection.onclose = function(e) {
+						connection = new WebSocket('ws://localhost:3000');
+					}
+				}
+			}
+			new Sockets();
+		</script>
+	</body>
+</html>
